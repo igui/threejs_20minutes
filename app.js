@@ -3,7 +3,20 @@
 {
 	'use strict';
 
-	var scene, camera, renderer;
+	var scene, camera, renderer, mesh;
+
+
+	function getRainbow()
+	{
+		var time = new Date().getTime();
+
+		function getColor()
+		{
+			return Math.floor((Math.sin(time/100)+1) * 128);
+		}
+
+		return 'hsl(' + getColor() + ', 100%, 50%)';
+	}
 
  	function init()
 	{
@@ -27,11 +40,11 @@
 		// earth
 		var loader = new THREE.TextureLoader();
 		loader.load( 'earth.jpg', function ( texture ) {
-			var geometry = new THREE.SphereGeometry(1, 200, 200);
+			var geometry = new THREE.SphereGeometry(0.1, 200, 200);
 			var material = new THREE.MeshBasicMaterial(
 				{ map: texture, /*color: 'red', /*wireframe: true*/ }
 			);
-			var mesh = new THREE.Mesh(geometry, material);
+			mesh = new THREE.Mesh(geometry, material);
 			mesh.position.set(0,0,-2);
 			scene.add(mesh);
 		});
@@ -46,7 +59,12 @@
 
 	function render()
 	{
+		if(mesh)
+		{
+			mesh.rotation.y += 0.005;
+		}
 		renderer.render(scene, camera);
+		renderer.setClearColor(getRainbow());
 		window.requestAnimationFrame(render);
 	}
 
