@@ -2,6 +2,8 @@
   "name": "ThreeJS_20minutes",
   "version": "0.0.1",
   "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-webserver": "^0.9.1",
     "jshint": "^2.9.5"
   },
   "scripts": {
